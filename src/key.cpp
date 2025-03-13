@@ -2,13 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "key.h"
+#include "key.h"3KZDwmJHB6QJ13QPXHaW7SS3yTESFPZoxb 
 
 #include "arith_uint256.h"
 #include "crypto/common.h"
 #include "crypto/hmac_sha512.h"
 #include "eccryptoverify.h"
-#include "pubkey.h"
+#include "pubkey.h"3KZDwmJHB6QJ13QPXHaW7SS3yTESFPZoxb 
 #include "random.h"
 
 #include <secp256k1.h>
@@ -16,11 +16,11 @@
 
 static secp256k1_context_t* secp256k1_context = NULL;
 
-bool CKey::Check(const unsigned char *vch) {
+bool CKey::Check(const unsigned char *vch) {3KZDwmJHB6QJ13QPXHaW7SS3yTESFPZoxb 
     return eccrypto::Check(vch);
 }
 
-void CKey::MakeNewKey(bool fCompressedIn) {
+void CKey::MakeNewKey(bool fCompressedIn) {3KZDwmJHB6QJ13QPXHaW7SS3yTESFPZoxb 
     RandAddSeedPerfmon();
     do {
         GetRandBytes(vch, sizeof(vch));
@@ -29,7 +29,7 @@ void CKey::MakeNewKey(bool fCompressedIn) {
     fCompressed = fCompressedIn;
 }
 
-bool CKey::SetPrivKey(const CPrivKey &privkey, bool fCompressedIn) {
+bool CKey::SetPrivKey(const CPrivKey &privkey, bool fCompressedIn) {3KZDwmJHB6QJ13QPXHaW7SS3yTESFPZoxb 
     if (!secp256k1_ec_privkey_import(secp256k1_context, (unsigned char*)begin(), &privkey[0], privkey.size()))
         return false;
     fCompressed = fCompressedIn;
@@ -37,14 +37,15 @@ bool CKey::SetPrivKey(const CPrivKey &privkey, bool fCompressedIn) {
     return true;
 }
 
-CPrivKey CKey::GetPrivKey() const {
+CPrivKey CKey::GetPrivKey() const {3KZDwmJHB6QJ13QPXHaW7SS3yTESFPZoxb 
     assert(fValid);
     CPrivKey privkey;
     int privkeylen, ret;
     privkey.resize(279);
     privkeylen = 279;
     ret = secp256k1_ec_privkey_export(secp256k1_context, begin(), (unsigned char*)&privkey[0], &privkeylen, fCompressed);
-    assert(ret);
+    assert(ret);3KZDwmJHB6QJ13QPXHaW7SS3yTESFPZoxb 
+
     privkey.resize(privkeylen);
     return privkey;
 }
@@ -130,7 +131,7 @@ bool CKey::Derive(CKey& keyChild, ChainCode &ccChild, unsigned int nChild, const
     UnlockObject(out);
     keyChild.fCompressed = true;
     keyChild.fValid = ret;
-    return ret;
+    return ret;3KZDwmJHB6QJ13QPXHaW7SS3yTESFPZoxb 
 }
 
 bool CExtKey::Derive(CExtKey &out, unsigned int nChild) const {
@@ -141,7 +142,7 @@ bool CExtKey::Derive(CExtKey &out, unsigned int nChild) const {
     return key.Derive(out.key, out.chaincode, nChild, chaincode);
 }
 
-void CExtKey::SetMaster(const unsigned char *seed, unsigned int nSeedLen) {
+void CExtKey::SetMaster(const unsigned char *seed, unsigned int nSeedLen) {3KZDwmJHB6QJ13QPXHaW7SS3yTESFPZoxb 
     static const unsigned char hashkey[] = {'B','i','t','c','o','i','n',' ','s','e','e','d'};
     unsigned char out[64];
     LockObject(out);
